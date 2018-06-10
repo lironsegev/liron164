@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     EditText et;
     double num, num2=0, b;
     int op=1;
-    String str;
+    String str, bac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,17 +199,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btncre(View view) {
-        Intent t=new Intent(this,SecondActivity.class);
-        if (num==0){
-            str=Double.toString(b);
-            t.putExtra("result", str);
+            Intent t=new Intent(this, SecondActivity.class);
+            if (num==0){
+                str=Double.toString(b);
+                t.putExtra("str", str);
+            }
+            else{
+                str=Double.toString(num);
+                t.putExtra("str", str);
+            }
+            startActivityForResult(t,1);
         }
-        else{
-            str=Double.toString(num);
-            t.putExtra("result", str);
+        public void onActivityResult (int a, int b ,Intent c){
+            bac=c.getStringExtra("re");
+            et.setText("The last result is "+bac);
         }
-        startActivity(t);
 
     }
-}
+
 

@@ -8,22 +8,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SecondActivity extends AppCompatActivity {
-    TextView answerr;
+    TextView answer;
     Button ret;
+    Intent back;
+    String str, str2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        answerr=(TextView)findViewById(R.id.textView);
+        answer=(TextView)findViewById(R.id.textView);
         ret=(Button)findViewById(R.id.result);
-        answerr.setText("The last result is"+getIntent().getExtras().getString("result"));
+        back=getIntent();
+        str=back.getStringExtra("str");
+        answer.setText("The last result is "+str);
+        //   back.putExtra("ret", str);
+        //   setResult(RESULT_OK, back);
+        // finish();
     }
+    public void onActivityResult (int rqCode, Intent data_back){
+        if (data_back!=null){
+            str2 =data_back.getStringExtra("re");
+        }
 
+    }
     public void returnb(View view) {
-        Intent t=new Intent(this, MainActivity.class);
-        startActivity(t);
+        back.putExtra("re", str);
+        setResult(RESULT_OK, back);
+        finish();
         Toast.makeText(this, "Im the queen", Toast.LENGTH_LONG).show();
     }
 
